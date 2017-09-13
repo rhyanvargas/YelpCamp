@@ -1,7 +1,17 @@
 // UTILITIES
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser');
+
+
+app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
+
+var campgrounds = [
+      { name: 'Dark Hollow Falls', image: 'https://i.pinimg.com/600x315/73/f6/52/73f6528c2cc62cfcf05cd71575bb0224.jpg'},
+      { name: 'Billy Goat Trail', image: 'http://www.livedogrow.com/wp-content/uploads/view-of-river-from-billy-goat-trail.jpg'},
+      { name: 'Gunpowder Falls', image: 'https://i1.wp.com/recreationnews.com/wp-content/uploads/2016/02/5347709848_e6095825a8_b.jpg?resize=678%2C381'}
+];
 
 // ROUTES
 app.get('/', function(req,res){
@@ -9,18 +19,22 @@ app.get('/', function(req,res){
 });
 
 app.get('/campgrounds', function(req,res){
-  var campgrounds = [
-      { name: 'Dark Hollow Falls', image: 'https://i.pinimg.com/600x315/73/f6/52/73f6528c2cc62cfcf05cd71575bb0224.jpg'},
-      { name: 'Billy Goat Trail', image: 'http://www.livedogrow.com/wp-content/uploads/view-of-river-from-billy-goat-trail.jpg'},
-      { name: 'Gunpowder Falls', image: 'https://i1.wp.com/recreationnews.com/wp-content/uploads/2016/02/5347709848_e6095825a8_b.jpg?resize=678%2C381'}
-  ]
-res.render('campgrounds', {campgrounds: campgrounds});
+  res.render('campgrounds', {campgrounds: campgrounds});
 });
 
 app.post('/campgrounds', function(req,res){
-  res.send('YOU HIT THE POST ROUTE!')
   // get data from form and add to campgrounds array
+  var name = req.body.name;
+  var image = req.body.image;
+  var newCampground = {name: name, image: image};
+
+  campgrounds.unshift(newCampground);
   // redirect back to campgrounds
+  res.redirect('/campgrounds');
+});
+
+app.get('/campgrounds/new', function(req,res){
+  res.render('new');
 });
 
 // SERVER
