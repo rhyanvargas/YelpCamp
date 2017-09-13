@@ -17,6 +17,12 @@ app.get('/campgrounds', function(req,res){
 res.render('campgrounds', {campgrounds: campgrounds});
 });
 
+app.post('/campgrounds', function(req,res){
+  res.send('YOU HIT THE POST ROUTE!')
+  // get data from form and add to campgrounds array
+  // redirect back to campgrounds
+});
+
 // SERVER
 app.listen(8080, function(){
   console.log('YELPCAMP SERVER STARTED! --> http://localhost:8080');

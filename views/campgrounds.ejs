@@ -1,9 +1,11 @@
-<h1>WELCOME TO THE CAMPGROUNDS!</h1>
-<a href="/"> Go Back to Home </a>
-<ul>
-  <% campgrounds.forEach(function(camp){ %>
-      <h4> <%= camp.name %> </h4>
-      <img src="<%= camp.image %>">
-  <%});%>
-</ul>
-<a href="/"> Go Back to Home </a>
+<% include partials/header %>
+  <h1>WELCOME TO THE CAMPGROUNDS!</h1>
+  <a href="/"> Go Back to Home </a>
+  <ul>
+    <% campgrounds.forEach(function(camp){ %>
+        <h4> <%= camp.name %> </h4>
+        <img src="<%= camp.image %>">
+    <%});%>
+  </ul>
+  <a href="/"> Go Back to Home </a>
+<% include partials/footer %>
