@@ -8,17 +8,12 @@ mongoose.connect('mongodb://localhost/yelp_camp');
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 
-// var campgrounds = [
-//       { name: 'Dark Hollow Falls', image: 'https://i.pinimg.com/600x315/73/f6/52/73f6528c2cc62cfcf05cd71575bb0224.jpg'},
-//       { name: 'Billy Goat Trail', image: 'http://www.livedogrow.com/wp-content/uploads/view-of-river-from-billy-goat-trail.jpg'},
-//       { name: 'Gunpowder Falls', image: 'https://i1.wp.com/recreationnews.com/wp-content/uploads/2016/02/5347709848_e6095825a8_b.jpg?resize=678%2C381'}
-// ];
-
 // ========> SCHEMA SETUP <=========
 
 var campgroundSchema = new mongoose.Schema({
   name: String,
-  image: String
+  image: String,
+  description: String
 });
 
 var Campground = mongoose.model('Campground', campgroundSchema);
@@ -30,6 +25,7 @@ app.get('/', function(req,res){
   res.render('landing');
 });
 
+// INDEX - display list 
 app.get('/campgrounds', function(req,res){
   // Get campgrounds from database
   Campground.find({}, function(err, allCampgrounds){
@@ -42,11 +38,13 @@ app.get('/campgrounds', function(req,res){
   }); 
 });
 
+// CREATE - add campground to DB list 
 app.post('/campgrounds', function(req,res){
   // get data from form and add to campgrounds array
-  var campName = req.body.formName;
-  var campImage = req.body.formImage;
-  var newCampground = { name: campName, image: campImage}
+  var name = req.body.formName;
+  var image = req.body.formImage;
+  var descr = req.body.formDescr;
+  var newCampground = { name: name, image: image, description: descr}
 
   // Create new campground and save to campgrounds database
   Campground.create(newCampground, function(err, newlyCreated){
@@ -59,9 +57,19 @@ app.post('/campgrounds', function(req,res){
   });
 });
 
+// NEW - show form to create new campground
 app.get('/campgrounds/new', function(req,res){
   res.render('new');
 }); 
+
+// SHOW - Display info about one campground
+app.get('/campgrouds/:id', function(req, res){
+  // find campground with id
+  // render template to show that campground
+  res.render('show')
+})
+
+
 
 // ========> SERVER <=========
 app.listen(8080, function(){
