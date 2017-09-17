@@ -33,7 +33,7 @@ app.get('/campgrounds', function(req,res){
       console.log('ERROR!');
       console.log(err);
     } else {
-      res.render('campgrounds', {campgrounds: allCampgrounds});
+      res.render('index', {campgrounds: allCampgrounds});
     }
   }); 
 });
@@ -63,11 +63,16 @@ app.get('/campgrounds/new', function(req,res){
 }); 
 
 // SHOW - Display info about one campground
-app.get('/campgrouds/:id', function(req, res){
-  // find campground with id
-  // render template to show that campground
-  res.render('show')
-})
+app.get('/campgrounds/:id', function(req, res){
+  // mongoose method to grab the ID
+  Campground.findById(req.params.id, function(err, foundCampground){
+    if (err) {
+      console.log(err);
+    } else {
+      res.render('show', {campground: foundCampground});
+    };
+  });
+});
 
 
 

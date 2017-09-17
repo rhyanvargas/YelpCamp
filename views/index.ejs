@@ -25,7 +25,10 @@
             <div>
               <img src="<%= campground.image %>" class="img-thumbnail  border-white" style="border: 0; padding:0;">
             </div>
-            <h4> <%= campground.name  %> </h4>
+            <h4> <%= campground.name %> </h4>
+            <p>
+              <a href="/campgrounds/<%=campground._id%>" class="btn btn-primary btn-block">View Details</a>
+            </p>
           </div>
         </div>
     <% }) %>
