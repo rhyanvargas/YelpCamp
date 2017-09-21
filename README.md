@@ -8,7 +8,7 @@ TECH STACK
 **Frontend: HTML + CSS + Javscript**
 - *CSS Framework: Bootstrap*
 
-USING RESTful Routes
+USING RESTful Routes for CRUD
 =============
 
 name      |     url       |    verb     |   description
